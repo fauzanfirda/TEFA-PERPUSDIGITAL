@@ -39,7 +39,7 @@ const keyword = ref('')
 
 const getBooks = async () => {
     const { data, error } = await supabase.from('buku').select(`*, kategori(*)`)
-    . ilike('judul', `%${keyword.value}`)
+    .ilike('judul', `%${keyword.value}%`)
     if(data) books.value = data
 }
 
