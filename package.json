@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxtjs/supabase": "^1.2.2",
     "bootstrap": "^5.3.3",
     "chart.js": "^3.9.1",
     "create": "^0.0.2",
