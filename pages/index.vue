@@ -29,10 +29,10 @@
     <div class="container-fluid">
         <div class="row my-5">
             <div class="col-lg-6 mb-3">
-                <nuxt-link to="/pengunjung/tambah">
+                <nuxt-link to="/pengunjung">
                 <div class="card bg-warning rounded-5">
                         <div class="card-body">
-                            <h2 class="pt-5">1000      pengunjung</h2>
+                            <h2 class="pt-5">{{ jml_pengunjung }}      pengunjung</h2>
                         </div>
                 </div>
                 </nuxt-link>
@@ -42,7 +42,7 @@
                 <nuxt-link to="/buku">
                     <div class="card bg-primary rounded-5">
                         <div class="card-body">
-                            <h2 class="pt-5">2000       buku</h2>
+                            <h2 class="pt-5">{{ jml_buku }}      buku</h2>
                         </div>
                     </div>
                 </nuxt-link> 
@@ -57,6 +57,32 @@
       
       
 </template>
+
+<script setup>
+const supabase = useSupabaseClient()
+const jml_pengunjung = ref(0)
+const jml_buku = ref(0)
+
+async function getjml_pengunjung() {
+  const{error, data, count } = await supabase
+  .from("pengunjung")
+  .select('*', {count: 'exact' })
+  if (count) jml_pengunjung.value = count;
+}
+
+async function getjml_buku() {
+  const{error, data, count } = await supabase
+  .from("buku")
+  .select('*', {count: 'exact' })
+  if (count) jml_buku.value = count;
+}
+
+onMounted(() => {
+    getjml_pengunjung()
+    getjml_buku()
+})
+
+</script>
 
 <style scoped>
 .card {
